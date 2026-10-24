@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<!-- 声明文档类型为HTML5 -->
+<html lang="zh-CN">
+	<!-- 网页语言设置为简体中文 -->
+	<head>
+		<!-- 字符编码，防止中文乱码 -->
+		<meta charset="UTF-8">
+		<!-- 适配移动端，视口设置 -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- 网页标题，浏览器标签显示 -->
+		<title>亲近海洋</title>
+		<style>
+			/* 全局样式初始化：清除默认外边距、内边距，统一盒模型 */
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				/* 设置网页默认字体，微软雅黑 */
+				font-family: "Microsoft YaHei", serif;
+			}
+
+			/* 首屏Hero区域：占满整个浏览器窗口 */
+			.hero {
+				width: 100vw;
+				/* 宽度等于视口宽度 */
+				height: 100vh;
+				/* 高度等于视口高度 */
+				position: relative;
+				/* 相对定位，作为内部绝对定位元素的父容器 */
+				overflow: hidden;
+				/* 超出区域内容隐藏，防止视频溢出 */
+			}
+
+			/* 背景视频样式 */
+			.bg-video {
+				position: absolute;
+				/* 绝对定位，铺满父容器 */
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				/* 视频等比例裁剪填充，不变形 */
+				z-index: -2;
+				/* 层级最低，放在最底层 */
+			}
+
+			/* 半透明蒙版层【修改：加深蒙版，让白色文字更突出】 */
+			.mask {
+				position: absolute;
+				inset: 0;
+				/* 上下左右全部为0，铺满父容器 */
+				background-color: rgba(0, 0, 20, 0.35);
+				/* 蒙版透明度调高，压暗背景 */
+				z-index: -1;
+				/* 层级在视频之上，文字之下 */
+			}
+
+			/* 顶部导航栏 */
+			nav {
+				display: flex;
+				/* 弹性布局，横向排列logo和菜单 */
+				justify-content: space-between;
+				/* 两端对齐，logo靠左，菜单靠右 */
+				align-items: center;
+				/* 垂直居中 */
+				padding: 20px 20px;
+				/* 内边距 */
+				position: fixed;
+				/* 固定定位，滚动时导航始终停留在顶部 */
+				top: 0;
+				width: 100%;
+				z-index: 2;
+				/* 层级高于视频，保证导航可以看见 */
+				transition: all 0.3s;
+				/* 过渡动画，滚动变色平滑效果 */
+				background: rgba(0, 0, 20, 0.2);
+				backdrop-filter: blur(8px);
+				-webkit-backdrop-filter: blur(8px);
+			}
+
+			/* JS滚动后添加的类：导航栏变成白色背景+阴影 */
+			nav.scrolled {
+				background: #fff;
+				box-shadow: 0 2px 10px #00000018;
+			}
+
+			/* Logo文字样式【修改：文字改为白色】 */
+			.logo {
+				color: #ffffff;
+				font-weight: 600;
+				letter-spacing: 1px;
+				/* 字间距 */
+			}
+
+			/* 导航菜单链接样式【修改：文字改为白色】 */
+			.nav-links a {
+				color: #ffffff;
+				text-decoration: none;
+				/* 取消超链接默认下划线 */
+				margin: 0 12px;
+				/* 链接之间左右间距 */
+				font-size: 14px;
+			}
+
+			/* 导航右侧圆角按钮样式【修改：边框白色，文字白色】 */
+			.btn-outline {
+				border: 1px solid #ffffff;
+				padding: 6px 16px;
+				border-radius: 999px;
+				/* 大圆角胶囊按钮 */
+			}
+
+			/* 首屏主文字内容区域 */
+			.hero-content {
+				position: absolute;
+				/* 绝对定位，放在首屏左侧 */
+				left: 60px;
+				top: 34%;
+				color: #ffffff;
+				/*【修改：全部文字白色】 */
+			}
+
+			/* 顶部小字标签 */
+			.small-tip {
+				font-size: 13px;
+				letter-spacing: 2px;
+				margin-bottom: 14px;
+			}
+
+			/* 大标题样式 */
+			h1 {
+				font-size: 74px;
+				line-height: 1.05;
+				/* 行高 */
+				margin-bottom: 18px;
+			}
+
+			/* 描述副标题文字 */
+			.desc {
+				font-size: 18px;
+				opacity: 0.95;
+				/*【修改：提高透明度，更亮】 */
+				line-height: 1.5;
+				margin-bottom: 36px;
+			}
+
+			/* 按钮容器 */
+			.action-buttons button {
+				padding: 13px 26px;
+				border-radius: 999px;
+				border: none;
+				cursor: pointer;
+				/* 鼠标悬浮变成小手 */
+				font-size: 14px;
+				margin-right: 14px;
+			}
+
+			/* 实心主按钮【修改深色底色，白色字】 */
+			.btn-fill {
+				background-color: #ffffff;
+				color: #1c2c46;
+			}
+
+			/* 半透明次按钮【修改为白色半透】 */
+			.btn-play {
+				background-color: rgba(255, 255, 255, 0.35);
+				color: #ffffff;
+			}
+
+			/* 右下角滚动提示文字【白色】 */
+			.scroll-tip {
+				position: absolute;
+				right: 40px;
+				bottom: 40px;
+				font-size: 12px;
+				color: #ffffff;
+			}
+
+			/* 左下角实况文字【白色】 */
+			/* 左下角实况文字【白色】 */
+			.live-tip {
+				position: absolute;
+				left: 40px;
+				bottom: 40px;
+				font-size: 12px;
+				color: #ffffff;
+			}
+
+			.live-tip a:link,
+			.live-tip a:visited,
+			.live-tip a:hover,
+			.live-tip a:active {
+				color: #ffffff !important;
+				text-decoration: none !important;
+			}
+
+
+			/* 第二屏板块，用来测试滚动效果 */
+			.section2 {
+				width: 100%;
+				height: 100vh;
+				background: #f4f7fb;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			/* 导航滚动变白之后，导航内文字变回深色（滚动后适配） */
+			nav.scrolled .logo,
+			nav.scrolled .nav-links a {
+				color: #1c2c46;
+			}
+
+			nav.scrolled .btn-outline {
+				border-color: #1c2c46;
+			}
+
+			.action-buttons a {
+				text-decoration: none;
+				display: inline-block;
+				/* 让a标签支持圆角和padding */
+			}
+
+			/* 右侧图片滚动组件，悬浮定位，不需要父容器 */
+			.img-scroll-wrap {
+				position: absolute;
+				right: 90px;
+				/* 原来 30px，加大是往左，减小往右；改成 60 往右移 */
+				top: 50%;
+				transform: translateY(-50%);
+				width: 600px;
+				height: 440px;
+				z-index: 5;
+			}
+
+			.img-scroll-list img:hover {
+				transform: translate(-50%, -50%) translate(0, -14px) scale(1.08) !important;
+				z-index: 999 !important;
+			}
+
+			.img-scroll-list {
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+
+			.img-scroll-list img {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: 260px;
+				height: 360px;
+				object-fit: cover;
+				border-radius: 20px;
+				box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+				transition: transform 0.5s ease, opacity 0.5s ease, z-index 0.3s;
+				cursor: pointer;
+			}
+
+			.img-scroll-list img:hover {
+				transform: translateY(-14px) scale(1.08) !important;
+				z-index: 999 !important;
+			}
+			.p-style{
+				text-indent: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 首屏主区域 -->
+		<section class="hero">
+			<!-- 背景视频：autoplay自动播放，muted静音，loop循环播放，playsinline移动端内联播放 -->
+			<video class="bg-video" autoplay loop playsinline>
+				<!-- 引入本地视频文件 ocean.mp4 -->
+				<source src="../video/【剪辑空镜】浪花海洋大海沙滩海浪视频素材.mp4" type="video/mp4">
+			</video>
+			<!-- 半透明蒙版 -->
+			<div class="mask"></div>
+			<!-- 顶部导航栏，id用于JS获取这个元素 -->
+			<!-- 右侧横向滚动图片区域 -->
+			<div class="img-scroll-wrap">
+				<div class="img-scroll-list">
+					<img src="../img/水母.jpg">
+					<img src="../img/海龟.jpg">
+					<img src="../img/鲸鱼.png">
+					<img src="../img/小黄鱼.png">
+					<img src="../img/企鹅.jpg ">
+				</div>
+			</div>
+
+			<nav id="navBar">
+				<div class="logo">亲近海洋</div>
+				<div class="nav-links">
+					<a href="explore.html">探索</a>
+					<a href="story.html">我们的故事</a>
+					<a href="log.html">日志</a>
+					<a href="go.html" class="btn-outline">立即探索</a>
+				</div>
+			</nav>
+
+			<!-- 首屏标题文字区块 -->
+			<div class="hero-content">
+				<div class="small-tip">感受世界慢下来</div>
+				<h1>亲近<br><h1 class="p-style">海洋。</h1></h1>
+				<div class="desc">
+					片刻宁静，无限可能。
+				</div>
+				<div class="action-buttons">
+					<button class="btn-fill" onclick="location.href='Exploring the ocean.html'">探索海洋 →</button>
+					<button class="btn-play" onclick="location.href='guanying.html'">▶观看影片</button>
+				</div>
+			</div>
+
+			<!-- 左下角文字 -->
+			<div class="live-tip">
+				<a href="https://liveworldwebcams.com/zh-CN/vilsandi-seal-webcam/" target="_blank"
+					style="color:inherit;text-decoration:underline;">海上实况</a>
+			</div>
+
+
+
+			<!-- 右下角滚动提示 -->
+			<div class="scroll-tip">向下滚动探索 ↓</div>
+		</section>
+	</body>
+</html>
+<script>
+	const list = document.querySelector('.img-scroll-list');
+	const imgs = list.querySelectorAll('img');
+	let current = 0;
+	const total = imgs.length;
+
+	function updateStack() {
+		imgs.forEach((el, i) => {
+			let diff = i - current;
+			if (diff < -2) diff += total;
+			if (diff > 2) diff -= total;
+			const d = Math.abs(diff);
+			const x = diff * 72;
+			const scale = 1 - d * 0.12;
+			const opacity = d > 2 ? 0 : 1 - d * 0.25;
+			const z = 20 - d;
+			el.style.transform = `translate(-50%, -50%) translate(${x}px, 0) scale(${scale})`;
+			el.style.opacity = opacity;
+			el.style.zIndex = z;
+		})
+	}
+	// ✅ 直接点哪一张，哪一张来到中间
+	imgs.forEach((img, idx) => {
+		img.onclick = () => {
+			current = idx;
+			updateStack();
+		}
+	})
+	updateStack();
+</script>
