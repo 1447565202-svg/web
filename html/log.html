@@ -1,11 +1,241 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 	<head>
-		<meta charset="utf-8">
-		<title>日志</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../css/style.css">
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				font-family: "Microsoft Yahei", sans-serif;
+			}
+
+			body {
+				color: #fff;
+				background: #081420;
+				overflow-x: hidden;
+			}
+
+			.bg-wrap {
+				position: fixed;
+				inset: 0;
+				z-index: -1;
+			}
+
+			.bg-wrap img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				opacity: 0.4;
+			}
+
+			nav {
+				width: 100%;
+				padding: 28px 40px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 99;
+			}
+
+			.logo {
+				font-size: 20px;
+				font-weight: 500;
+			}
+
+			.nav-right a {
+				color: #fff;
+				text-decoration: none;
+				margin-left: 32px;
+				font-size: 15px;
+			}
+
+			.nav-right a.active {
+				font-weight: bold;
+			}
+
+			.nav-right .btn {
+				border: 1px solid #fff;
+				padding: 7px 14px;
+				border-radius: 20px;
+			}
+
+			.container {
+				padding: 140px 40px 80px;
+				max-width: 1280px;
+				margin: 0 auto;
+			}
+
+			.title-box h2 {
+				font-size: 64px;
+				line-height: 1.2;
+				margin-bottom: 20px;
+			}
+
+			/* 向下箭头动画 */
+			.scroll-arrow {
+				font-size: 36px;
+				opacity: 0.7;
+				animation: bounce 1.8s infinite;
+				margin-bottom: 48px;
+			}
+
+			@keyframes bounce {
+
+				0%,
+				100% {
+					transform: translateY(0);
+					opacity: 0.7;
+				}
+
+				50% {
+					transform: translateY(10px);
+					opacity: 0.3;
+				}
+			}
+
+			/* 双列卡片网格 */
+			.log-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 32px;
+			}
+
+			.log-card {
+				background: rgba(12, 30, 48, 0.32);
+				border-radius: 18px;
+				padding: 28px;
+				border: 1px solid rgba(255, 255, 255, 0.15);
+				transition: 0.3s ease;
+			}
+
+			.log-card:hover {
+				background: rgba(255, 255, 255, 0.1);
+				transform: translateY(-4px);
+			}
+
+			.log-card .date {
+				font-size: 14px;
+				opacity: 0.6;
+				margin-bottom: 10px;
+			}
+
+			.log-card h3 {
+				font-size: 22px;
+				margin-bottom: 12px;
+			}
+
+			.log-card p {
+				font-size: 16px;
+				opacity: 0.8;
+				line-height: 1.7;
+			}
+
+			.tip-down {
+				position: fixed;
+				bottom: 30px;
+				right: 40px;
+				font-size: 13px;
+				opacity: 0.7;
+			}
+
+			/* 移动端自动单列 */
+			@media (max-width: 900px) {
+				.log-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			/* 背景视频样式 */
+			.bg-video {
+				position: absolute;
+				/* 绝对定位，铺满父容器 */
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				/* 视频等比例裁剪填充，不变形 */
+				z-index: -2;
+				/* 层级最低，放在最底层 */
+			}
+			nav {
+				z-index: 1;
+				/* nav放mask上面 */
+				background: rgba(0, 15, 30, 0.06);
+				backdrop-filter: blur(3px);
+				-webkit-backdrop-filter: blur(3px);
+				padding: 25px 25px;
+			}
+		</style>
 	</head>
 	<body>
-		<h1>日志页面</h1>
-		<a href="index.html">返回首页</a>
+		<div class="bg-wrap">
+			<video class="bg-video" autoplay loop playsinline>
+				<!-- 引入本地视频文件 ocean.mp4 -->
+				<source src="../video/222.mp4" type="video/mp4">
+			</video>
+		</div>
+		<nav>
+			<div class="logo">亲近海洋</div>
+			<div class="nav-right">
+				<a href="explore.html">探索</a>
+				<a href="story.html">我们的故事</a>
+				<a href="log.html" class="active">日志</a>
+				<a href="index.html" class="btn">立即探索</a>
+			</div>
+		</nav>
+		<div class="container">
+			<div class="title-box">
+				<h2>海洋日志</h2>
+				<div class="scroll-arrow">↓</div>
+			</div>
+			<div class="log-grid">
+				<div class="log-card">
+					<div class="date">2026.09.12</div>
+					<h3>潮间带生物观察</h3>
+					<p>退潮后的礁石区藏着丰富的小生命。寄居蟹背着螺壳缓慢爬行，海葵紧紧吸附在岩石上，触碰时会缓缓收缩触手。这片短暂露出水面的地带，是海洋生物重要的栖息地。</p>
+				</div>
+				<div class="log-card">
+					<div class="date">2026.09.18</div>
+					<h3>水母习性记录</h3>
+					<p>水母没有大脑和心脏，依靠伞状体的收缩推动身体游动。很多深海水母自带生物荧光，用来迷惑捕食者或者吸引猎物，是深海里温柔又神秘的发光生灵。</p>
+				</div>
+				<div class="log-card">
+					<div class="date">2026.09.25</div>
+					<h3>海龟迁徙记录</h3>
+					<p>成年海龟会跨越数千公里的大洋，回到自己出生的沙滩产卵。它们依靠洋流、磁场辨别方向，漫长的旅途危机四伏，渔网和塑料垃圾是它们最大的威胁。</p>
+				</div>
+				<div class="log-card">
+					<div class="date">2026.10.01</div>
+					<h3>海岸垃圾记录</h3>
+					<p>海岸滩涂上发现不少塑料碎片、渔线。塑料在海水中很难降解，会破碎成微塑料，顺着食物链层层累积，最终危害从浮游生物到大型海洋动物的所有生命。</p>
+				</div>
+				<div class="log-card">
+					<div class="date">2026.10.08</div>
+					<h3>珊瑚白化科普笔记</h3>
+					<p>珊瑚本身是白色，斑斓的色彩来自体内共生藻。海水升温会让珊瑚排出共生藻，进而白化死亡。一片珊瑚礁形成需要上百年，一次持续高温就可以大面积摧毁。</p>
+				</div>
+				<div class="log-card">
+					<div class="date">2026.10.12</div>
+					<h3>珊瑚礁生态系统</h3>
+					<p>珊瑚礁被称为海洋热带雨林，只占海洋面积不到0.1%，却养活了近四分之一的海洋鱼类。它不仅是生物家园，还能缓冲海浪，保护海岸线不受侵蚀。</p>
+				</div>
+				<div class="log-card">
+					<div class="date">2026.10.15</div>
+					<h3>潮汐与海洋</h3>
+					<p>潮汐由日月引力共同引起，涨潮落潮循环往复。潮汐带动海水交换，输送营养物质，滋养潮间带生物，也塑造了沙滩、礁石等多样海岸地貌。</p>
+				</div>
+				<div class="log-card">
+					<div class="date">2026.10.20</div>
+					<h3>海洋保护思考</h3>
+					<p>海洋的自愈能力十分有限。减少一次性塑料、拒绝购买珊瑚贝壳工艺品、不随意投喂海洋生物，普通人微小的选择，汇聚起来就能守护这片蔚蓝。</p>
+				</div>
+			</div>
+		</div>
+		<div class="tip-down">向下滚动探索 ↓</div>
 	</body>
 </html>

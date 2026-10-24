@@ -42,18 +42,6 @@
 				z-index: -2;
 				/* 层级最低，放在最底层 */
 			}
-
-			/* 半透明蒙版层【修改：加深蒙版，让白色文字更突出】 */
-			.mask {
-				position: absolute;
-				inset: 0;
-				/* 上下左右全部为0，铺满父容器 */
-				background-color: rgba(0, 0, 20, 0.35);
-				/* 蒙版透明度调高，压暗背景 */
-				z-index: -1;
-				/* 层级在视频之上，文字之下 */
-			}
-
 			/* 顶部导航栏 */
 			nav {
 				display: flex;
@@ -62,7 +50,7 @@
 				/* 两端对齐，logo靠左，菜单靠右 */
 				align-items: center;
 				/* 垂直居中 */
-				padding: 20px 20px;
+				padding: 25px 25px;
 				/* 内边距 */
 				position: fixed;
 				/* 固定定位，滚动时导航始终停留在顶部 */
@@ -273,10 +261,6 @@
 				<!-- 引入本地视频文件 ocean.mp4 -->
 				<source src="../video/111.mp4" type="video/mp4">
 			</video>
-			<!-- 半透明蒙版 -->
-			<div class="mask"></div>
-			<!-- 顶部导航栏，id用于JS获取这个元素 -->
-			<!-- 右侧横向滚动图片区域 -->
 			<div class="img-scroll-wrap">
 				<div class="img-scroll-list">
 					<img src="../img/shuimu.jpg">

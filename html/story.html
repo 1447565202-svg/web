@@ -1,12 +1,289 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>我们的故事</title>
-</head>
-<body>
-    <h1>我们的故事页面</h1>
-    <!-- 可以加链接跳回首页 -->
-    <a href="index.html">返回首页</a>
-</body>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>我们的故事 | 亲近海洋</title>
+		<link rel="stylesheet" href="../css/style.css">
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				font-family: "Microsoft Yahei", sans-serif;
+			}
+
+			body {
+				color: #fff;
+				background: #081420;
+				overflow-x: hidden;
+			}
+
+			/* 固定背景 */
+			.bg-wrap {
+				position: fixed;
+				inset: 0;
+				z-index: -1;
+			}
+
+			.bg-wrap img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				opacity: 0.35;
+			}
+
+			/* 顶部导航 */
+			nav {
+				width: 100%;
+				padding: 28px 40px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 99;
+			}
+
+			.logo {
+				font-size: 20px;
+				font-weight: 500;
+			}
+
+			.nav-right a {
+				color: #fff;
+				text-decoration: none;
+				margin-left: 32px;
+				font-size: 15px;
+			}
+
+			.nav-right a.active {
+				font-weight: bold;
+			}
+
+			.nav-right .btn {
+				border: 1px solid #fff;
+				padding: 7px 14px;
+				border-radius: 20px;
+			}
+
+			/* 主体容器 */
+			.container {
+				padding: 140px 40px 80px;
+				max-width: 1200px;
+				margin: 0 auto;
+			}
+
+			.title-box {
+				margin-bottom: 100px;
+			}
+
+			.title-box h2 {
+				font-size: 64px;
+				line-height: 1.2;
+				margin-bottom: 32px;
+			}
+
+			.title-box p {
+				font-size: 17px;
+				line-height: 1.9;
+				opacity: 0.82;
+				max-width: 560px;
+			}
+
+			/* 左右交替区块 */
+			.story-row {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 60px;
+				align-items: center;
+				margin-bottom: 120px;
+			}
+
+			.story-row.reverse .text-box {
+				order: 2;
+			}
+
+			.story-row.reverse .img-box {
+				order: 1;
+			}
+
+			.text-box h3 {
+				font-size: 28px;
+				margin-bottom: 24px;
+			}
+
+			.text-box p {
+				font-size: 17px;
+				line-height: 1.9;
+				opacity: 0.82;
+				margin-bottom: 18px;
+			}
+
+			.img-box img {
+				width: 100%;
+				height: 420px;
+				object-fit: cover;
+				border-radius: 20px;
+				box-shadow: 0 20px 50px rgba(0, 20, 40, 0.45);
+			}
+
+			.tip-down {
+				position: fixed;
+				bottom: 30px;
+				right: 40px;
+				font-size: 13px;
+				opacity: 0.7;
+			}
+
+			/* 手机端自适应 */
+			@media (max-width: 900px) {
+				.story-row {
+					grid-template-columns: 1fr;
+				}
+
+				.story-row.reverse .text-box,
+				.story-row.reverse .img-box {
+					order: unset;
+				}
+			}
+
+			/* 背景视频样式 */
+			.bg-video {
+				position: absolute;
+				/* 绝对定位，铺满父容器 */
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				/* 视频等比例裁剪填充，不变形 */
+				z-index: -2;
+				/* 层级最低，放在最底层 */
+			}
+
+			/* 半透明蒙版层【修改：加深蒙版，让白色文字更突出】 */
+			.mask {
+				position: absolute;
+				inset: 0;
+				/* 上下左右全部为0，铺满父容器 */
+				background-color: rgba(0, 0, 20, 0.35);
+				/* 蒙版透明度调高，压暗背景 */
+				z-index: -1;
+			}
+
+			nav {
+				z-index: 1;
+				/* nav放mask上面 */
+				background: rgba(0, 15, 30, 0.06);
+				backdrop-filter: blur(3px);
+				-webkit-backdrop-filter: blur(3px);
+				padding: 25px 25px;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="bg-wrap">
+			<video class="bg-video" autoplay loop playsinline>
+				<!-- 引入本地视频文件 ocean.mp4 -->
+				<source src="../video/222.mp4" type="video/mp4">
+			</video>
+		</div>
+		<nav>
+			<div class="logo">亲近海洋</div>
+			<div class="nav-right">
+				<a href="explore.html">探索</a>
+				<a href="story.html" class="active">我们的故事</a>
+				<a href="log.html">日志</a>
+				<a href="index.html" class="btn">立即探索</a>
+			</div>
+		</nav>
+
+		<div class="container">
+
+			<div class="title-box">
+				<h2>和大海<br>相遇的故事</h2>
+				<p>
+					第一次站在海边，听浪潮一遍遍拍打礁石，我们忽然懂得海洋的浪漫与脆弱。
+					蔚蓝之下，不仅有美丽的生命，也正在发生我们不能忽视的改变。
+				</p>
+			</div>
+
+			<!-- 第一段：文字左，图片右 -->
+			<div class="story-row">
+				<div class="text-box">
+					<h3>初见：浪潮带来的触动</h3>
+					<p>
+						第一次认真凝望大海，是在一个黄昏。潮水安静漫上沙滩，又缓缓退去，留下细碎泡沫。
+						以前只在视频里见过蔚蓝，直到站在岸边，听见海浪持续不断的声响，才真切感受到海洋的辽阔。
+					</p>
+					<p>
+						那天我们沿着海岸线慢慢走，看见礁石缝隙里躲藏的小生物，也看见被潮水冲上岸的塑料瓶、碎渔网。
+						美好的画面和刺眼的垃圾放在一起，心里很不是滋味。也正是那一刻，萌生了想要做点什么的想法。
+					</p>
+				</div>
+				<div class="img-box">
+					<img src="../img/chujiandahai.jpg" alt="初见大海">
+				</div>
+			</div>
+
+			<!-- 第二段：图片左，文字右 -->
+			<div class="story-row reverse">
+				<div class="text-box">
+					<h3>深入：藏在蔚蓝之下的危机</h3>
+					<p>
+						后来我们查阅了很多海洋保护资料，慢慢了解到那些看不见的困境。
+						全球变暖让海水温度不断升高，大片珊瑚礁发生白化，曾经五彩斑斓的珊瑚群落慢慢失去生机。
+					</p>
+					<p>
+						海洋里的微塑料顺着食物链流动，从浮游生物，到小鱼，再到大型海洋动物，最终形成难以逆转的伤害。
+						很多海洋生物会误把塑料袋当成水母吞下，废弃渔网缠绕住海龟、海豹，让它们无法游动、无法觅食。
+					</p>
+				</div>
+				<div class="img-box">
+					<img src="../img/haiyangweiji.jpg" alt="海洋危机">
+				</div>
+			</div>
+
+			<!-- 第三段：文字左，图片右 -->
+			<div class="story-row">
+				<div class="text-box">
+					<h3>行动：搭建一座小小的窗口</h3>
+					<p>
+						我们想做一个安静、治愈的网页，不喊空洞的口号，只是把海洋的美好呈现出来。
+						于是开始构思这个“亲近海洋”网站：首页留给壮阔海景，探索页面展示奇妙海洋生灵，日志记录观察与学习。
+					</p>
+					<p>
+						做网页的过程里，我们挑选图片、调整样式、反复修改跳转，努力让页面风格贴近大海给人的感觉：安静、深邃，又充满生命力。
+						我们希望打开页面的人，可以慢下来，好好看一看这片蓝色世界。
+					</p>
+				</div>
+				<div class="img-box">
+					<img src="../img/story3.jpg" alt="制作网站">
+				</div>
+			</div>
+
+			<!-- 第四段：图片左，文字右 -->
+			<div class="story-row reverse">
+				<div class="text-box">
+					<h3>期许：守护是长久的事</h3>
+					<p>
+						一个网站改变不了全世界，但可以种下一颗小小的种子。
+						海洋保护不需要每个人都奔赴深海，它藏在日常的选择里：减少一次性塑料制品、不购买珊瑚与贝壳制品、不随意向河道海边丢弃垃圾。
+					</p>
+					<p>
+						浪潮会日复一日涌向海岸，海洋里的生命依旧在努力繁衍。
+						只要愿意多一份留意，多一份克制，蔚蓝就可以长久留存。大海的故事还在继续，而守护海洋这件事，期待有你一同参与。
+					</p>
+				</div>
+				<div class="img-box">
+					<img src="../img/qinglilaji.jpg" alt="守护海洋">
+				</div>
+			</div>
+
+		</div>
+
+		<div class="tip-down">向下滚动探索 ↓</div>
+
+	</body>
 </html>

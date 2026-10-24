@@ -1,12 +1,233 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>探索</title>
-</head>
-<body>
-    <h1>探索页面</h1>
-    <!-- 可以加链接跳回首页 -->
-    <a href="index.html">返回首页</a>
-</body>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>探索海洋 | 亲近海洋</title>
+		<link rel="stylesheet" href="../css/style.css">
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				font-family: "Microsoft Yahei", sans-serif;
+			}
+
+			body {
+				color: #fff;
+				background: #081420;
+			}
+
+			.bg-wrap {
+				width: 100vw;
+				height: 100vh;
+				position: fixed;
+				z-index: -1;
+			}
+
+			.bg-wrap img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				opacity: 0.45;
+			}
+
+			nav {
+				width: 100%;
+				padding: 28px 40px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			.logo {
+				font-size: 20px;
+				font-weight: 500;
+			}
+
+			.nav-right a {
+				color: #fff;
+				text-decoration: none;
+				margin-left: 32px;
+				font-size: 15px;
+			}
+
+			.nav-right a.active {
+				font-weight: bold;
+			}
+
+			.container {
+				padding: 0 40px;
+				margin-top: 80px;
+			}
+
+			.title-box h2 {
+				font-size: 64px;
+				line-height: 1.2;
+				margin-bottom: 16px;
+			}
+
+			.title-box p {
+				font-size: 17px;
+				opacity: 0.8;
+				max-width: 480px;
+				margin-bottom: 48px;
+			}
+
+			.card-group {
+				display: flex;
+				gap: 24px;
+				flex-wrap: wrap;
+			}
+
+			.sea-card {
+				width: 260px;
+				height: 360px;
+				border-radius: 16px;
+				overflow: hidden;
+				position: relative;
+			}
+
+			.sea-card img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+
+			.sea-card .text {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				padding: 24px 20px;
+				background: linear-gradient(transparent, rgba(0, 15, 30, 0.85));
+			}
+
+			.sea-card h3 {
+				font-size: 20px;
+				margin-bottom: 6px;
+			}
+
+			.sea-card p {
+				font-size: 13px;
+				opacity: 0.75;
+			}
+
+			.tip-down {
+				position: fixed;
+				bottom: 30px;
+				right: 40px;
+				font-size: 13px;
+				opacity: 0.7;
+			}
+
+			/* 背景视频样式 */
+			.bg-video {
+				position: absolute;
+				/* 绝对定位，铺满父容器 */
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				/* 视频等比例裁剪填充，不变形 */
+				z-index: -2;
+				/* 层级最低，放在最底层 */
+			}
+
+			/* 半透明蒙版层【修改：加深蒙版，让白色文字更突出】 */
+			.mask {
+				position: absolute;
+				inset: 0;
+				/* 上下左右全部为0，铺满父容器 */
+				background-color: rgba(0, 0, 20, 0.35);
+				/* 蒙版透明度调高，压暗背景 */
+				z-index: -1;
+			}
+			nav {
+				z-index: 1;
+				/* nav放mask上面 */
+				background: rgba(0, 15, 30, 0.06);
+				backdrop-filter: blur(3px);
+				-webkit-backdrop-filter: blur(3px);
+				padding: 25px 25px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="bg-wrap">
+			<video class="bg-video" autoplay loop playsinline>
+				<!-- 引入本地视频文件 ocean.mp4 -->
+				<source src="../video/111.mp4" type="video/mp4">
+			</video>
+		</div>
+		<!-- 半透明蒙版 -->
+		<div class="mask"></div>
+		<!-- 顶部导航栏，id用于JS获取这个元素 -->
+		<!-- 右侧横向滚动图片区域 -->
+		<nav>
+			<div class="logo">亲近海洋</div>
+			<div class="nav-right">
+				<a href="explore.html" class="active">探索</a>
+				<a href="story.html">我们的故事</a>
+				<a href="log.html">日志</a>
+				<a href="index.html" style="border:1px solid #fff;padding:7px 14px;border-radius:20px;">立即探索</a>
+			</div>
+		</nav>
+		<div class="container">
+			<div class="title-box">
+				<h2>潜入深蓝<br>探索秘境</h2>
+				<p>海洋藏着无数不为人知的生命与风景，跟随我们一起，走进这片蔚蓝世界，认识奇妙的海洋生灵。</p>
+			</div>
+			<div class="card-group">
+				<div class="sea-card">
+					<img src="../img/shuimu.jpg" alt="水母">
+					<div class="text">
+						<h3>深海水母</h3>
+						<p>在无光深海中自由漂浮的发光精灵</p>
+					</div>
+				</div>
+				<div class="sea-card">
+					<img src="../img/fancheyu.jpg" alt="翻车鱼">
+					<div class="text">
+						<h3>翻车鱼</h3>
+						<p>外形奇特的远洋鱼类，一次可产下上亿枚鱼卵，是海洋中的产卵大户。</p>
+					</div>
+				</div>
+				<div class="sea-card">
+					<img src="../img/lanhuan.jpg" alt="章鱼">
+					<div class="text">
+						<h3>蓝环章鱼</h3>
+						<p>聪明灵巧的海洋软体动物，拥有出色的伪装能力，体表的蓝环是危险信号。</p>
+					</div>
+				</div>
+				<div class="sea-card">
+					<img src="../img/haigui.jpg" alt="海龟">
+					<div class="text">
+						<h3>远洋海龟</h3>
+						<p>跨越万里海域，代代奔赴出生的海岸</p>
+					</div>
+				</div>
+				<div class="sea-card">
+					<img src="../img/shanhu.jpg" alt="珊瑚">
+					<div class="text">
+						<h3>珊瑚礁群</h3>
+						<p>海洋里的热带雨林，万千小鱼的家园</p>
+					</div>
+				</div>
+				<div class="sea-card">
+					<img src="../img/redaiyuqun.jpg" alt="热带鱼">
+					<div class="text">
+						<h3>热带鱼群</h3>
+						<p>色彩斑斓，穿梭在珊瑚丛林之间</p>
+					</div>
+					<div class="sea-card">
+						<img src="../img/redaiyuqun.jpg" alt="热带鱼">
+						<div class="text">
+							<h3>热带鱼群</h3>
+							<p>色彩斑斓，穿梭在珊瑚丛林之间</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tip-down">向下滚动探索 ↓</div>
+	</body>
 </html>
